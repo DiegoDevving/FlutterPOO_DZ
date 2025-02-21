@@ -1,3 +1,4 @@
+import 'package:donut_app_2b_rodriguez/utils/donut_tile.dart';
 import 'package:flutter/material.dart';
 
 class DonutTab extends StatelessWidget {
@@ -23,7 +24,7 @@ class DonutTab extends StatelessWidget {
           return DonutTile(
             donutFlavor: donutsOnsale[index][0],
             donutPrice: donutsOnsale[index][1],
-            DonutColor: donutsOnsale[index][2],
+            donutColor: donutsOnsale[index][2],
             imageName: donutsOnsale[index][3]
           );
         },
