@@ -76,12 +76,4 @@ class _HomePageState extends State<HomePage> {
   }
 
   // Function to create content for each tab
-  Widget _buildTabContent(String foodType) {
-    return Center(
-      child: Text(
-        'Delicious $foodType coming soon!',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
 }
