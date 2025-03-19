@@ -31,9 +31,9 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: Icon(Icons.menu, color: Colors.grey[800]),
-          actions: [
+          actions: const [
             Padding(
-              padding: const EdgeInsets.only(right: 24.0),
+              padding: EdgeInsets.only(right: 24.0),
               child: Icon(Icons.person),
             )
           ],
@@ -44,13 +44,16 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
               child: Row(
-                children: [
+                children: const [
                   Text('I want to ', style: TextStyle(fontSize: 32)),
-                  Text('Eat',
-                      style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline))
+                  Text(
+                    'Eat',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -68,12 +71,54 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            // Carrito (aquí falta el código para el carrito si lo necesitas)
+            // Carrito (Shopping cart section)
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                //Poner los elementos en los extremos de la fila
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 28),
+                    child: Column(
+                      // Alinearlo a la izquierda
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          '2 Items  | \$45',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold, // Negritas
+                          ),
+                        ),
+                        Text(
+                          "Delivery Charges Included",
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.pink,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12, 
+                      ),
+                    ),
+                    child: const Text(
+                      'View Cart',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-
-  // Function to create content for each tab
 }
