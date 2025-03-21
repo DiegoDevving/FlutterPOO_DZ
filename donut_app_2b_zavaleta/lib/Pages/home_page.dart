@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Lista de tabs
+  // Lista de Tabs
   List<Widget> myTabs = [
     MyTab(iconPath: 'lib/icons/donut.png'),
     MyTab(iconPath: 'lib/icons/burger.png'),
@@ -23,102 +23,103 @@ class _HomePageState extends State<HomePage> {
     MyTab(iconPath: 'lib/icons/pizza.png'),
   ];
 
+  // Variables del carrito
+  int itemCount = 0;
+  double totalPrice = 0.0;
+
+  void addToCart(double price) {
+    setState(() {
+      itemCount++;
+      totalPrice += price;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 5,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          leading: Icon(Icons.menu, color: Colors.grey[800]),
-          actions: const [
-            Padding(
-              padding: EdgeInsets.only(right: 24.0),
-              child: Icon(Icons.person),
-            )
-          ],
-        ),
-        body: Column(
-          children: [
+          appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              leading: Icon(
+                Icons.menu,
+                color: Colors.pinkAccent[800],
+              ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 24.0),
+                  child: Icon(Icons.person),
+                )
+              ]),
+          body: Column(children: [
             // Texto principal
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
               child: Row(
-                children: const [
-                  Text('I want to ', style: TextStyle(fontSize: 32)),
-                  Text(
-                    'Eat',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
+                children: [
+                  Text("I want to", style: TextStyle(fontSize: 32)),
+                  Text("Eat",
+                      style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          color: Colors.pinkAccent[800]))
                 ],
               ),
             ),
             // TabBar
             TabBar(tabs: myTabs),
-            // TabBarView with content for each tab
+            // Contenido de pestañas
             Expanded(
-              child: TabBarView(
-                children: [
-                  DonutTab(),
-                  BurgerTab(),
-                  SmoothieTab(),
-                  PancakesTab(),
-                  PizzaTab(),
-                ],
-              ),
+              child: TabBarView(children: [
+                DonutTab(addToCart: addToCart),
+                BurgerTab(addToCart: addToCart),
+                SmoothieTab(addToCart: addToCart),
+                PancakesTab(addToCart: addToCart),
+                PizzaTab(addToCart: addToCart)
+              ]),
             ),
-            // Carrito (Shopping cart section)
+            // Carrito
             Container(
               color: Colors.white,
               padding: const EdgeInsets.all(16),
               child: Row(
-                //Poner los elementos en los extremos de la fila
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 28),
-                    child: Column(
-                      // Alinearlo a la izquierda
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          '2 Items  | \$45',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold, // Negritas
+                      padding: EdgeInsets.only(left: 28),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '$itemCount Items | \$${totalPrice.toStringAsFixed(2)}',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                        ),
-                        Text(
-                          "Delivery Charges Included",
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ),
+                          Text("Delivery Charges Included",
+                              style: TextStyle(fontSize: 12)),
+                        ],
+                      )),
                   ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pink,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12, 
-                      ),
-                    ),
-                    child: const Text(
-                      'View Cart',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    onPressed: () {
+                      if (itemCount > 0) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Ir al carrito')),
+                        );
+                      }
+                    },
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                    child: Text('View Cart',
+                        style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
+            )
+          ])),
     );
   }
 }
+
+  
